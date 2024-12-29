@@ -1,0 +1,19 @@
+model Task {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  profiles TasksOnProfiles[]
+}
+
+model TasksOnProfiles {
+  task      Task    @relation(fields: [taskId], references: [id])
+  taskId    String
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String
+  fulfilled Boolean @default(false)
+
+  @@id([taskId, profileId])
+}

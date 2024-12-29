@@ -1,0 +1,18 @@
+model Organization {
+  id         String   @id @default(cuid())
+  name       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  manager    Profile?
+  groups     Group[]
+}
+
+model Group {
+  id             String       @id @default(uuid())
+  name           String
+  mentor         Profile?
+  created_at     DateTime     @default(now())
+  updated_at     DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String       @unique
+}

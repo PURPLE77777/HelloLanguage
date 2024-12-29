@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "Dictionary" ADD COLUMN     "seen_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable
+ALTER TABLE "Profile" ADD COLUMN     "online_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable
+ALTER TABLE "TasksOnProfiles" ADD COLUMN     "fulfilled" BOOLEAN NOT NULL DEFAULT false;

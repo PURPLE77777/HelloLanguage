@@ -1,0 +1,27 @@
+model User {
+  id          String    @id @default(cuid())
+  first_name  String
+  middle_name String?
+  last_name   String
+  birthday    DateTime
+  email       String    @unique
+  password    String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  profiles    Profile[]
+}
+
+model Profile {
+  id             String            @id @default(uuid())
+  nickname       String
+  created_at     DateTime          @default(now())
+  updated_at     DateTime          @updatedAt
+  online_at      DateTime          @default(now())
+  User           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  organization   Organization      @relation(fields: [organizationId], references: [id])
+  organizationId String            @unique
+  group          Group             @relation(fields: [groupId], references: [id])
+  groupId        String            @unique
+  tasks          TasksOnProfiles[]
+}

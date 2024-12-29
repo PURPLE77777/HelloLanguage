@@ -1,0 +1,27 @@
+model Dictionary {
+  id         String                @id @default(uuid())
+  name       String
+  created_at DateTime              @default(now())
+  updated_at DateTime              @updatedAt
+  seen_at    DateTime              @default(now())
+  words      DictionariesOnWords[]
+}
+
+model DictionariesOnWords {
+  dictionary   Dictionary @relation(fields: [dictionaryId], references: [id])
+  dictionaryId String
+  word         Word       @relation(fields: [wordId], references: [id])
+  wordId       String
+  assigned_at  DateTime   @default(now())
+
+  @@id([dictionaryId, wordId])
+}
+
+model Word {
+  id           String                @id @default(uuid())
+  text         String
+  created_at   DateTime              @default(now())
+  updated_at   DateTime              @updatedAt
+  language     Language?
+  dictionaries DictionariesOnWords[]
+}

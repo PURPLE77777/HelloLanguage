@@ -1,0 +1,7 @@
+model Language {
+  id     String @id @default(cuid())
+  name   String @unique
+  code   String @unique
+  word   Word   @relation(fields: [wordId], references: [id])
+  wordId String @unique
+}
